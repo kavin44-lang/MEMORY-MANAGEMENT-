@@ -1,0 +1,409 @@
+ 
+KAVIN R  |  711525BAD073  |  AI&DS - C 
+ 
+ 
+KIT - KALAIGNARKARUNANIDHI INSTITUTE OF TECHNOLOGY 
+(An Autonomous Institution) 
+Kannampalayam Post, Coimbatore - 641402 
+ 
+DEPARTMENT OF ARTIFICIAL INTELLIGENCE AND DATA SCIENCE 
+ 
+CONCEPT OF PRACTICES 
+Course Code: B25CEP301 
+ 
+A PROJECT REPORT ON 
+PRODUCT MANAGEMENT SYSTEM 
+A Java Swing desktop application with JDBC connectivity to MySQL 
+ 
+SUBMITTED BY 
+Name                 :  KAVIN R 
+Register Number  :  711525BAD073 
+Department         :  Artificial Intelligence and Data Science 
+Section                 :  C 
+GitHub repository Link: https://github.com/kavin44-lang/MEMORY-MANAGEMENT- 
+November 2026 
+ 
+Product Management System Concept of Practices 
+KAVIN R  |  711525BAD073  |  AI&DS - C 2 
+Contents 
+Abstract....................................................................................................................................... 3 
+1. Introduction ............................................................................................................................. 4 
+2. Problem Statement .................................................................................................................. 6 
+3. Existing Approaches and Their Limitations ............................................................................. 8 
+4. System Requirements .............................................................................................................. 9 
+5. Proposed Solution ................................................................................................................. 11 
+6. System Architecture .............................................................................................................. 13 
+7. What Makes the Project Different .......................................................................................... 15 
+8. Security and Control .............................................................................................................. 15 
+9. Challenges ............................................................................................................................. 17 
+10. Results and Expected Outcomes .......................................................................................... 18 
+11. Conclusion .......................................................................................................................... 19 
+Appendix A: Sample Output...................................................................................................... 20 
+ 
+Product Management System Concept of Practices 
+KAVIN R  |  711525BAD073  |  AI&DS - C 3 
+Abstract 
+This report presents the concept, design and expected operation of a Product Management System 
+developed using Java Swing, JDBC and MySQL. The purpose of the system is to organise product 
+information in a structured database instead of relying on paper records or separate spreadsheets. 
+A typical product record contains a unique product identifier, name, category, price, quantity and other 
+useful details. The desktop interface provides a convenient way to enter and view this information. 
+Java code performs validation and coordinates user requests, JDBC communicates with the database, 
+and MySQL stores the records permanently. 
+The report discusses the motivation, problems with manual inventory records, functional requirements, 
+layered architecture, data safety, possible implementation challenges and a testing plan. The project is 
+described as a design where the exact implementation cannot be verified from source code. Sample 
+outputs are illustrations, not evidence of completed tests. 
+Keywords: Product Management System, Java Swing, JDBC, MySQL, CRUD, inventory, database 
+connectivity, input validation. 
+ 
+Product Management System Concept of Practices 
+KAVIN R  |  711525BAD073  |  AI&DS - C 4 
+1. Introduction 
+1.1 Background 
+Products are the central records in shops, stockrooms and small organisations. Each product needs an 
+accurate name, identifier, selling price, category and available quantity. When these values are stored 
+in different notebooks or files, the information becomes difficult to maintain. A central application 
+reduces repeated work and helps users retrieve the latest record. 
+Product management software provides a structured way to maintain information. It is especially 
+useful when products are frequently added, prices change or stock quantities need to be corrected. 
+1.2 Motivation 
+The motivation for this project is to make basic product record management simple and dependable. A 
+desktop application with clear forms and a relational database is a practical exercise in connecting a 
+graphical user interface with persistent storage. 
+1.3 What is a Product Management System? 
+A Product Management System is an application used to create, display, edit, search and remove 
+product records. The actual supported operations depend on the program implementation. A database 
+can retain records even after the application is closed. 
+ 
+Product Management System Concept of Practices 
+KAVIN R  |  711525BAD073  |  AI&DS - C 5 
+1.4 Overview of the project 
+The proposed application uses Java Swing to present windows, labels, fields, buttons and tables. 
+Application logic checks the entered values and decides which operation to perform. JDBC provides 
+the interface for executing SQL statements, while MySQL stores the information. This separation 
+makes the design easier to understand and maintain. 
+1.5 Why this is more than a spreadsheet 
+A spreadsheet is convenient for small lists, but it depends on manual discipline. It can contain 
+duplicate identifiers, invalid quantities and inconsistent price formats. A database-backed application 
+can check inputs before saving and use database constraints to protect records. 
+1.6 Scope of this report 
+This report covers the project concept, common requirements, recommended architecture, security 
+considerations, planned tests and illustrative outputs. The exact database fields and completed 
+functions must be verified against the actual project files before final submission. 
+1.7 Organisation of the report 
+The chapters move from the background and problem statement to the requirements, solution, 
+architecture, safety, challenges, testing and conclusion. 
+ 
+Product Management System Concept of Practices 
+KAVIN R  |  711525BAD073  |  AI&DS - C 6 
+2. Problem Statement 
+2.1 Background 
+Small businesses often keep product details in handwritten stock books, spreadsheet files or messages. 
+A price change may be updated in one place but missed in another. Without a central record, it is hard 
+to know which information is correct. 
+2.2 Problem 1: Scattered information 
+Separate records lead to duplicated product entries, inconsistent names, old prices and slow searching. 
+Staff may spend unnecessary time comparing lists before making decisions. 
+2.3 Problem 2: Weak data entry 
+A user may accidentally leave a product name empty, enter a negative quantity or type letters in a 
+numeric price field. Unchecked values reduce the usefulness of reports and stock records. 
+2.4 Problem 3: No persistent storage 
+Data stored only in a running program disappears when it closes. Product details should remain 
+available after restart and should be retrievable by a stable identifier. 
+ 
+Product Management System Concept of Practices 
+KAVIN R  |  711525BAD073  |  AI&DS - C 7 
+2.5 Problem statement in short 
+A simple and reliable application is required to maintain product records through an easy desktop 
+interface with permanent storage. It should reduce duplication, improve data entry and provide 
+predictable record operations. 
+2.6 Objectives 
+• Provide a clear desktop interface for product details. 
+• Connect Java application code to MySQL using JDBC. 
+• Store records in a structured database. 
+• Validate required text, price and quantity values. 
+• Support the record operations present in the completed implementation. 
+• Handle connection and input errors with understandable messages. 
+• Keep presentation, logic and database access responsibilities separate. 
+2.7 Expected users 
+The intended users are shopkeepers, inventory assistants or small office staff responsible for 
+maintaining product information. A technical administrator may configure the database and application 
+environment. 
+ 
+Product Management System Concept of Practices 
+KAVIN R  |  711525BAD073  |  AI&DS - C 8 
+3. Existing Approaches and Their Limitations 
+3.1 Manual registers 
+Paper records are inexpensive and easy to start, but they are slow to search and difficult to correct 
+consistently. Pages may be misplaced or damaged. 
+3.2 Spreadsheet-based tracking 
+Spreadsheets support sorting and filtering, but copies can become inconsistent. Data validation is often 
+incomplete and users may overwrite cells accidentally. 
+3.3 Generic billing applications 
+Large billing and enterprise systems provide many functions but can be costly or unnecessarily 
+complicated for a small product-record exercise. 
+3.4 Comparison 
+Approach Advantage Limitation 
+Paper register Simple Slow search; loss risk 
+Spreadsheet Familiar and flexible Duplicate copies and invalid entries 
+Large commercial system Rich functions More setup and cost 
+Desktop database application Structured local records Requires Java and database setup 
+These limitations motivate a lightweight application focused on clear product data entry and reliable 
+storage. 
+ 
+Product Management System Concept of Practices 
+KAVIN R  |  711525BAD073  |  AI&DS - C 9 
+4. System Requirements 
+4.1 Functional requirements 
+• Display product data in a graphical interface. 
+• Connect to a configured MySQL database. 
+• Accept and validate product information. 
+• Store and retrieve records using JDBC. 
+• Support create, read, update and delete operations where implemented. 
+• Show useful messages when input or connection errors occur. 
+4.2 Non-functional requirements 
+Quality Requirement 
+Usability Clearly labelled fields and buttons 
+Reliability Handle database errors without unexpected termination 
+Maintainability Keep database code separate from interface logic 
+Integrity Validate identifiers and numeric values 
+Security Use parameterised SQL and protect credentials 
+Portability Run with compatible Java and MySQL installations 
+ 
+Product Management System Concept of Practices 
+KAVIN R  |  711525BAD073  |  AI&DS - C 10 
+4.3 Software requirements 
+Component Suggested technology 
+Programming language Java 
+Graphical interface Java Swing 
+Database connectivity JDBC / MySQL Connector/J 
+Database MySQL 
+Development environment VS Code, IntelliJ IDEA or NetBeans 
+Operating system Windows or another supported platform 
+4.4 Hardware requirements 
+A standard laptop or desktop computer capable of running Java and a local MySQL server is sufficient 
+for a small demonstration. Exact minimum requirements depend on the selected versions and record 
+volume. 
+4.5 Assumptions and constraints 
+The database must be configured and running before the application accesses it. Field names, table 
+definitions and supported features must match the actual source code and schema. Multi-user 
+permissions and cloud synchronisation are outside the basic scope unless explicitly implemented. 
+4.6 Who uses the system 
+An operator maintains product records. A system administrator manages the runtime, database 
+accounts, backups and connectivity. 
+ 
+Product Management System Concept of Practices 
+KAVIN R  |  711525BAD073  |  AI&DS - C 11 
+5. Proposed Solution 
+5.1 Overall idea 
+The user enters product details in a Java Swing form. Application logic checks values, selects an 
+operation and calls the JDBC data-access layer. MySQL stores or returns the requested records. The 
+result appears in the application window. 
+Problem Proposed response 
+Scattered information One MySQL database 
+Incorrect values Input validation 
+Temporary records Persistent storage 
+Hard-to-maintain code Separate interface and database operations 
+5.2 Presentation module (Java Swing) 
+The presentation module uses windows, panels, text fields, labels, buttons, message dialogs and tables. 
+Its responsibility is to collect user input and display results. SQL statements should not be embedded 
+directly inside visual components. 
+5.3 Application logic module 
+This module receives actions, checks required fields, validates numeric values and decides whether the 
+requested operation should continue. 
+ 
+Product Management System Concept of Practices 
+KAVIN R  |  711525BAD073  |  AI&DS - C 12 
+5.4 Data-access module (JDBC) 
+JDBC opens connections, sends SQL statements and reads database results. PreparedStatement should 
+be used for user-provided values. Connections, statements and result sets should be closed after use. 
+5.5 Database module (MySQL) 
+MySQL maintains product records in relational tables. A recommended conceptual product table 
+includes product_id, product_name, category, price and quantity. These are illustrative fields and 
+should be aligned with the actual schema. 
+5.6 Validation module 
+A product name should not be blank. Price and quantity should be checked for valid numeric types and 
+permitted ranges. Duplicate identifiers should be handled through a suitable database constraint. 
+5.7 Workflow of a typical operation 
+1. Open the application. 
+2. Enter or select product information. 
+3. Choose a supported action. 
+4. Validate the entered values. 
+5. Execute a parameterised database operation. 
+6. Refresh the displayed records and show a result message. 
+ 
+Product Management System Concept of Practices 
+KAVIN R  |  711525BAD073  |  AI&DS - C 13 
+5.8 Output 
+The expected output is a desktop screen that displays product information from the database and 
+allows the user to perform supported operations. Sample screens are presented in Appendix A. These 
+illustrations are not captured from a running application. 
+6. System Architecture 
+The system is divided into cooperating layers. The interface accepts actions, the application layer 
+validates them, JDBC communicates with MySQL and the database maintains persistent records. 
+USER 
+↓ 
+JAVA SWING INTERFACE 
+↓ 
+APPLICATION LOGIC & VALIDATION 
+↓ 
+JDBC DATA ACCESS 
+↓ 
+MYSQL CONNECTOR/J 
+↓ 
+MYSQL DATABASE 
+Figure 6.1: Conceptual flow of the Product Management System. 
+ 
+Product Management System Concept of Practices 
+KAVIN R  |  711525BAD073  |  AI&DS - C 14 
+6.1 Main components 
+Layer Responsibility 
+Presentation Swing forms, buttons and tables 
+Application logic Input checking and operation selection 
+Data access JDBC queries and results 
+Database driver MySQL Connector/J 
+Database Persistent product records 
+6.2 Flow of information 
+Data moves from the user interface through the application and data-access layers to the database. 
+Results travel back along the same path. This design avoids direct coupling between the window 
+layout and SQL. 
+6.3 Data storage 
+Product records are identified by a key and stored in database tables. The actual schema determines 
+column types, constraints and any relationships. 
+6.4 Worked example 
+For example, an operator enters a product name, category, price and quantity. The application checks 
+the values, JDBC sends an INSERT statement and MySQL stores the record. The table is refreshed 
+after success. This is an illustrative workflow, not a recorded test. 
+ 
+Product Management System Concept of Practices 
+KAVIN R  |  711525BAD073  |  AI&DS - C 15 
+7. What Makes the Project Different 
+The main strength of this project is its clear, manageable structure. A dedicated interface, application 
+logic and relational database can provide a dependable foundation for small-scale product record 
+management. 
+• Clear separation of interface, logic and database operations. 
+• Structured and persistent product records. 
+• Validation before storing data. 
+• A lightweight desktop workflow for routine record management. 
+7.1 Measurable indicators 
+Indicator Evidence required 
+Operation correctness Record and database checks 
+Validation Invalid-input test cases 
+Data integrity Duplicate and constraint checks 
+Error handling Connection-failure tests 
+Repeatable setup Fresh installation test 
+8. Security and Control 
+A product management application should protect stored information and avoid unsafe database 
+operations. The following controls are recommended design requirements, not verified implementation 
+claims. 
+ 
+Product Management System Concept of Practices 
+KAVIN R  |  711525BAD073  |  AI&DS - C 16 
+8.1 Recommended controls 
+• Validate all required input before SQL operations. 
+• Use PreparedStatement parameters for values. 
+• Keep passwords out of public source files. 
+• Use a database account with limited permissions. 
+• Close database resources after use. 
+• Display clear user messages and keep technical details in logs. 
+8.2 Input validation 
+Prices and quantities require numeric checks. Names and categories should have appropriate length 
+limits. Invalid input should be rejected before it reaches the database. 
+8.3 SQL safety 
+Parameterised SQL prevents user text from being interpreted as SQL instructions. It is preferred over 
+building queries by joining strings. 
+8.4 Credential protection 
+Database passwords should be stored in protected local configuration or environment variables rather 
+than hard-coded into public code. 
+8.5 Responsibilities 
+Part Allowed responsibility 
+Swing Collect input and show results 
+Logic Validate and coordinate 
+JDBC Execute parameterised SQL 
+MySQL Store and constrain data 
+ 
+Product Management System Concept of Practices 
+KAVIN R  |  711525BAD073  |  AI&DS - C 17 
+8.6 Failure handling 
+If the database is stopped, a connection fails or a value violates a constraint, the application should 
+show a useful message instead of crashing. Technical details can be recorded separately for diagnosis. 
+8.7 Limitations 
+The actual implementation must be reviewed and tested before any control is described as complete. 
+This report provides a recommended design. 
+9. Challenges 
+Challenge Suggested response 
+Database setup Centralise connection settings 
+Missing JDBC driver Include correct Connector/J dependency 
+Numeric input Validate and parse carefully 
+Duplicate products Use suitable unique identifiers 
+Interface refresh Reload records after successful changes 
+Database unavailable Catch exceptions and inform the user 
+Code maintenance Separate SQL from Swing event handlers 
+These challenges are common in Java desktop database projects. Successful handling should be 
+demonstrated through the completed program and test evidence. 
+ 
+Product Management System Concept of Practices 
+KAVIN R  |  711525BAD073  |  AI&DS - C 18 
+10. Results and Expected Outcomes 
+10.1 Current evidence 
+The project topic and technology stack are Product Management System using Java Swing, JDBC and 
+MySQL. The complete source code, database schema and actual application screenshots were not 
+provided with this request. Therefore, test results are not claimed. 
+10.2 Test plan 
+Test Action Expected result Status 
+T1 Start application Main window opens To test 
+T2 Connect to MySQL Connection succeeds To test 
+T3 Add valid product Record stored To test 
+T4 Blank name Validation message To test 
+T5 Invalid price Rejected safely To test 
+T6 Edit selected record Chosen record updated To test 
+T7 Delete selected record Chosen record removed To test 
+T8 Stop database Clear error message To test 
+10.3 Expected benefit to users 
+Operators should be able to find and maintain product records more consistently, with less duplicate 
+data entry and fewer manual corrections. 
+ 
+Product Management System Concept of Practices 
+KAVIN R  |  711525BAD073  |  AI&DS - C 19 
+10.4 Expected benefit to the organisation 
+A single structured product database can improve record consistency and make information easier to 
+retrieve for routine stock management. It also provides a foundation for later reporting and inventory 
+features. 
+10.5 How success will be judged 
+Success should be measured by verified operations, correct data storage and retrieval, proper validation 
+and clear failure handling. Screenshots and database checks should be added after testing. 
+11. Conclusion 
+The Product Management System demonstrates how a Java Swing interface, application logic, JDBC 
+and MySQL can work together to manage product information. A layered approach makes the 
+application easier to maintain and helps separate input handling from persistent storage. 
+11.1 Future enhancements 
+Potential extensions include low-stock alerts, barcode support, supplier records, category filters, sales 
+reports, user roles and data export. These are future ideas, not claims about the present application. 
+11.2 Next steps 
+Verify the source code and schema, run the application, record test results and replace illustrative 
+outputs with genuine screenshots. 
+References 
+Oracle Java Swing documentation; Oracle JDBC documentation; MySQL Reference Manual; MySQL 
+Connector/J documentation. 
+ 
+Product Management System Concept of Practices 
+KAVIN R  |  711525BAD073  |  AI&DS - C 20 
+Appendix A: Sample Output 
+The following is a conceptual illustration of a product management screen. It is not a screenshot of an 
+executed program. 
+A.1 Illustrative product table 
+Product ID Product Name Category Price (INR) Quantity 
+P101 Notebook Stationery 60.00 40 
+P102 USB Cable Electronics 199.00 15 
+P103 Water Bottle Accessories 250.00 22 
+A.2 Example actions 
+Action Illustrative message 
+Add Product saved successfully 
+Search Matching product displayed 
+Update Product updated successfully 
+Delete Product removed successfully 
+Invalid input Please enter valid product details 
+A.3 Screenshot placeholder 
+[Insert actual Java Swing application screenshot here after running the project.] 
+Note: Replace the sample table and messages with the real program output before final submission. 
